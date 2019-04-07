@@ -3,7 +3,7 @@ FROM python:3.7
 ENV DASH_DEBUG_MODE True
 
 RUN set -ex && \
-    pip install dash dash-daq
+    pip install dash dash-daq dash-bootstrap-components
 
 EXPOSE 8050
 
