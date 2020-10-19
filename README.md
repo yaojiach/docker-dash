@@ -21,3 +21,11 @@ Go to `http://localhost:8050` in browser.
 ```dockerfile
 ENV DASH_DEBUG_MODE True # False
 ```
+
+## Development
+
+Install the app requirements for development to get better editor support.
+
+```sh
+pipenv install -r app/requirements.txt
+```
