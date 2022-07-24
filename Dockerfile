@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.10
 
 ENV DASH_DEBUG_MODE True
 COPY ./app /app

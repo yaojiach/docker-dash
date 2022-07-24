@@ -5,11 +5,9 @@ Dockerize a Python Dash app for quick prototyping.
 ## Build and run
 
 ```sh
-docker build -t dash .
+docker build -t docker-dash-example .
 
-docker run -p 8050:8050 \
--v "$(pwd)"/app:/app \
---rm dash
+docker run -p 8050:8050 -v "$(pwd)"/app:/app --rm docker-dash-example
 ```
 
 ## Access the page
@@ -27,5 +25,12 @@ ENV DASH_DEBUG_MODE True # False
 Install the app requirements for development to get better editor support.
 
 ```sh
-pipenv install -r app/requirements.txt
+poetry install
+```
+
+Optional: clean initialization of `poetry`:
+
+```sh
+poetry init
+cat app/requirements.txt | xargs poetry add
 ```

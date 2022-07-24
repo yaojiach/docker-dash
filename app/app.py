@@ -1,33 +1,24 @@
-import dash
-import dash_bootstrap_components as dbc
-import dash_core_components as dcc
-import dash_html_components as html
-import flask
+from dash import Dash, html, dcc
+import plotly.express as px
+import pandas as pd
 
+app = Dash(__name__)
 
-server = flask.Flask(__name__)
-app = dash.Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
-app.config.suppress_callback_exceptions = True
+data = pd.DataFrame(
+    {
+        "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
+        "Amount": [4, 1, 2, 2, 4, 5],
+        "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"],
+    }
+)
+
+graph = px.bar(data, x="Fruit", y="Amount", color="City", barmode="group")
 
 app.layout = html.Div(
     children=[
-        html.H1(children="Hello Dash 2020"),
-        html.Div(children="""Dash: A web application framework for Python."""),
-        dcc.Graph(
-            id="example-graph",
-            figure={
-                "data": [
-                    {"x": [1, 2, 3], "y": [4, 1, 2], "type": "bar", "name": "SF"},
-                    {
-                        "x": [1, 2, 3],
-                        "y": [2, 4, 5],
-                        "type": "bar",
-                        "name": u"Montréal",
-                    },
-                ],
-                "layout": {"title": "Dash Data Visualization"},
-            },
-        ),
+        html.H1(children="Hello Dash in 2022"),
+        html.Div(children="""Dash: A web application framework for your data."""),
+        dcc.Graph(id="example-graph", figure=graph),
     ]
 )
 
@@ -36,4 +27,4 @@ if __name__ == "__main__":
     import os
 
     debug = False if os.environ["DASH_DEBUG_MODE"] == "False" else True
-    app.run_server(host="0.0.0.0", port=8050, debug=debug)
+    app.run(host="0.0.0.0", port="8050", debug=debug)
