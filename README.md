@@ -4,10 +4,16 @@ Dockerize a Python Dash app for quick prototyping.
 
 ## Build and run
 
-```sh
-docker build -t docker-dash-example .
+`prod` version is served by `gunicorn` instead of the `flask` dev server.
 
-docker run -p 8050:8050 -v "$(pwd)"/app:/app --rm docker-dash-example
+```sh
+# dev
+docker build -f Dockerfile.dev -t docker-dash-example-dev .
+docker run -p 8050:8050 -v "$(pwd)"/app:/app --rm docker-dash-example-dev
+
+# prod
+docker build -f Dockerfile -t docker-dash-example-prod .
+docker run -p 8050:8050 -v "$(pwd)"/app:/app --rm docker-dash-example-prod
 ```
 
 ## Access the page

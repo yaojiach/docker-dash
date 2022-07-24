@@ -1,8 +1,13 @@
+import os
 from dash import Dash, html, dcc
 import plotly.express as px
 import pandas as pd
 
+debug = False if os.environ["DASH_DEBUG_MODE"] == "False" else True
+
 app = Dash(__name__)
+
+server = app.server
 
 data = pd.DataFrame(
     {
@@ -16,7 +21,9 @@ graph = px.bar(data, x="Fruit", y="Amount", color="City", barmode="group")
 
 app.layout = html.Div(
     children=[
-        html.H1(children="Hello Dash in 2022"),
+        html.H1(
+            children=f"Hello Dash in 2022 from {'Dev Server' if debug else 'Prod Server'}"
+        ),
         html.Div(children="""Dash: A web application framework for your data."""),
         dcc.Graph(id="example-graph", figure=graph),
     ]
@@ -24,7 +31,4 @@ app.layout = html.Div(
 
 
 if __name__ == "__main__":
-    import os
-
-    debug = False if os.environ["DASH_DEBUG_MODE"] == "False" else True
     app.run(host="0.0.0.0", port="8050", debug=debug)
